@@ -113,7 +113,7 @@ class VigenereCipher():
 		'''
 		shifts = []
 		for char in key:
-			charcase = VigenereCipher.LOWER_A_OFFSET if char.isupper() else VigenereCipher.UPPER_A_OFFSET
+			charcase = VigenereCipher.UPPER_A_OFFSET if char.isupper() else VigenereCipher.LOWER_A_OFFSET
 			shifts.append(ord(char) - charcase)
 		return shifts
 
@@ -148,12 +148,12 @@ def main():
 	if args.encode:
 		ciphertext = VigenereCipher.encode(message, key, True)
 		print('KEY = %s'%key)
-		print("Encoded message: %r"%(str(ciphertext)))
+		print("Encoded message: %r"%(ciphertext))
 		#
 	elif args.decode:
 		plaintext = VigenereCipher.decode(message, key, True)
 		print('KEY = %s'%key)
-		print("Decoded message: %r"%(str(plaintext)))
+		print("Decoded message: %r"%(plaintext))
 		#
 	else:
 		error("Please choose option to encode, decode.")

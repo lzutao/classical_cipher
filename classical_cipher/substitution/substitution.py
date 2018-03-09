@@ -127,12 +127,12 @@ corresponding letter of the cipher alphabet.
 	if args.encode:
 		substituter.print_key()
 		ciphertext = substituter.encode(message)
-		print("Encoded message: %r"%(str(ciphertext)))
+		print("Encoded message: %r"%(ciphertext))
 		#
 	elif args.decode:
 		substituter.print_key()
 		plaintext = substituter.decode(message)
-		print("Decoded message: %r"%(str(plaintext)))
+		print("Decoded message: %r"%(plaintext))
 		#
 	else:
 		error("Please choose option to encode, decode the message.")
