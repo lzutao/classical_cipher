@@ -2,6 +2,8 @@
 import argparse
 import math
 import itertools
+from classical_cipher.caesar import CaesarCipher
+
 
 def error(msg):
 	import sys
@@ -69,37 +71,8 @@ class VigenereCipher():
 
 		result = bytearray()
 		for char, k in zip(msg, shifts):
-			result.append(VigenereCipher.caesar(char, k))
+			result.append(CaesarCipher.caesar(char, k))
 		return result
-
-
-	@staticmethod
-	def __isupper(b):
-		return (VigenereCipher.LOWER_A_OFFSET <= b) and (b <= VigenereCipher.LOWER_Z_OFFSET)
-
-	@staticmethod
-	def __islower(b):
-		return (VigenereCipher.UPPER_A_OFFSET <= b) and (b <= VigenereCipher.UPPER_Z_OFFSET)
-
-	@staticmethod
-	def __translate(b, offset, key):
-		return (b - offset + key)%26 + offset
-
-	@staticmethod
-	def caesar(char, key):
-		'''caesar(bytes('a'), 3) -> bytes('d')
-
-		@param char: a bytes to shitf
-		@param key: amount to shift
-
-		@returns: a shifted bytes
-		'''
-		out = char
-		if VigenereCipher.__isupper(char):
-			out = VigenereCipher.__translate(char, VigenereCipher.LOWER_A_OFFSET, key)
-		elif VigenereCipher.__islower(char):
-			out = VigenereCipher.__translate(char, VigenereCipher.UPPER_A_OFFSET, key)
-		return out
 
 	@staticmethod
 	def key_valid(key):
@@ -119,9 +92,7 @@ class VigenereCipher():
 
 	# static variables
 	LOWER_A_OFFSET = ord('a')
-	LOWER_Z_OFFSET = ord('z')
 	UPPER_A_OFFSET = ord('A')
-	UPPER_Z_OFFSET = ord('Z')
 
 
 def main():

@@ -27,8 +27,12 @@ class CaesarCipher():
 		@param key: shift amount from 1-25
 		@returns: encoded string
 		'''
-		ret = CaesarCipher.caesar(msg, key)
-		return str(ret)
+		message = bytearray(msg)
+		result = bytearray()
+		for char in message:
+			result.append(CaesarCipher.caesar(char, key))
+
+		return str(result)
 
 	@staticmethod
 	def decode(msg, key=13):
@@ -38,8 +42,7 @@ class CaesarCipher():
 		@param key: shift amount from 1-25
 		@returns: decoded string
 		'''
-		ret = CaesarCipher.caesar(msg, 26 - key)
-		return str(ret)
+		return CaesarCipher.encode(msg, 26-key)
 
 	@staticmethod
 	def __isupper(b):
@@ -54,19 +57,20 @@ class CaesarCipher():
 		return (b - offset + key)%26 + offset
 
 	@staticmethod
-	def caesar(msg, key):
-		message = bytearray(msg)
-		out = bytearray()
-		for char in message:
-			tmp = None
-			if CaesarCipher.__isupper(char):
-				tmp = CaesarCipher.__translate(char, CaesarCipher.LOWER_A_OFFSET, key)
-			elif CaesarCipher.__islower(char):
-				tmp = CaesarCipher.__translate(char, CaesarCipher.UPPER_A_OFFSET, key)
-			else:
-				tmp = char
-			out.append(tmp)
-		return out
+	def caesar(char, key):
+		'''caesar(bytes('a'), 3) -> bytes('d')
+
+		@param char: a bytes to shitf
+		@param key: amount to shift
+
+		@returns: a shifted bytes
+		'''
+		result = char
+		if CaesarCipher.__isupper(char):
+			result = CaesarCipher.__translate(char, CaesarCipher.LOWER_A_OFFSET, key)
+		elif CaesarCipher.__islower(char):
+			result = CaesarCipher.__translate(char, CaesarCipher.UPPER_A_OFFSET, key)
+		return result
 
 	@staticmethod
 	def entropy_analysics(msg):
@@ -101,7 +105,7 @@ class CaesarCipher():
 		entropies[0] = CaesarCipher.entropy_analysics(msg)
 		cache[0] = msg
 		for x in xrange(1,26):
-			ciphertext = str(CaesarCipher.caesar(msg, -x))
+			ciphertext = CaesarCipher.decode(msg, x)
 			entropies[x] = CaesarCipher.entropy_analysics(ciphertext)
 			cache[x] = ciphertext
 		# outloop
@@ -155,12 +159,12 @@ def main():
 	if args.encode:
 		ciphertext = CaesarCipher.encode(message, key)
 		print('KEY = %d'%key)
-		print("Encoded message: %r"%(str(ciphertext)))
+		print("Encoded message: %r"%ciphertext)
 		#
 	elif args.decode:
 		plaintext = CaesarCipher.decode(message, key)
 		print('KEY = %d'%key)
-		print("Decoded message: %r"%(str(plaintext)))
+		print("Decoded message: %r"%plaintext)
 		#
 	elif args.crack:
 		cache = {}

@@ -57,9 +57,9 @@ class Playfair:
 		arow, acol = divmod(self.key.index(a), 5)
 		brow, bcol = divmod(self.key.index(b), 5)
 		if arow == brow:
-			return (self.get_coord(arow, acol + 1), self.get_coord(brow, bcol + 1))
+			return (self.get_coord(arow, (acol + 1)%5), self.get_coord(brow, (bcol + 1)%5))
 		elif acol == bcol:
-			return (self.get_coord((arow + 1)%5, acol), self.get_coord(((brow + 1)%5), bcol))
+			return (self.get_coord((arow + 1)%5, acol), self.get_coord((brow + 1)%5, bcol))
 		else:
 			return (self.get_coord(arow, bcol), self.get_coord(brow, acol))
 
@@ -68,14 +68,14 @@ class Playfair:
 		arow, acol = divmod(self.key.index(a), 5)
 		brow, bcol = divmod(self.key.index(b), 5)
 		if arow == brow:
-			return (self.get_coord(arow , acol - 1), self.get_coord(brow , bcol - 1))
+			return (self.get_coord(arow , (acol - 1)%5), self.get_coord(brow , (bcol - 1)%5))
 		elif acol == bcol:
 			return (self.get_coord((arow - 1)%5, acol), self.get_coord((brow - 1)%5 , bcol))
 		else:
 			return (self.get_coord(arow , bcol), self.get_coord(brow, acol))
 
 	def get_coord(self, x, y):
-		return self.key[x*5 + y%5]
+		return self.key[x*5 + y]
 
 	def encode(self, msg):
 		"""Encrypt @msg using initialised key.
@@ -92,12 +92,12 @@ class Playfair:
 		msg = msg.upper().replace('J', 'I')
 
 		msg = Playfair.handle_repeated_chars(msg)
-		msg_len = len(msg)
 
-		if msg_len % 2 == 1:
+		if not Playfair.is_even_string(msg):
 			msg += 'X'
 
 		out = []
+		msg_len = len(msg)
 		for x in xrange(0, msg_len, 2):
 			out.extend(self.encode_pair(msg[x], msg[x+1]))
 
@@ -115,9 +115,9 @@ class Playfair:
 		"""
 		assert msg.isalpha(), "Invalid ciphertext. Must be Alphabetic string."
 		msg = msg.upper().strip()
-		msg_len = len(msg)
-		assert msg_len % 2 == 0, "Invalid ciphertext. Length of ciphertext must be even."
+		assert Playfair.is_even_string(msg), "Invalid ciphertext. Length of ciphertext must be even."
 		out = []
+		msg_len = len(msg)
 		for x in xrange(0, msg_len, 2):
 			out.extend(self.decipher_pair(msg[x], msg[x+1]))
 
@@ -129,6 +129,10 @@ class Playfair:
 		for x in xrange(0, 25, 5):
 			print(' '.join(self.key[x:x+5]))
 		print('========================')
+
+	@staticmethod
+	def is_even_string(msg):
+		return len(msg) & 1 == 0 # equivalent with len(2) % 1 == 0
 
 	@staticmethod
 	def handle_repeated_chars(msg):
