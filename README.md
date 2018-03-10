@@ -1,15 +1,13 @@
 # classical_cipher
 
 A Python package and command line script for encoding,
-decoding and cracking messages with classical cipher
-such as Caesar Cipher, Vigenere Cipher, Affine Cipher,
-Playfair, etc
+decoding with classical cipher such as Caesar Cipher,
+Vigenere Cipher, Affine Cipher, Playfair, etc
 
 ### Features
 
 - Encoding
 - Decoding
-- Cracking (decoding ciphertext without known offset)
 - Command Line Interface
 - Test suite
 - Support only Python 2
@@ -24,18 +22,19 @@ $ cd classical_cipher
 
 To install to your local home folder:
 ```
-$ python setup install --user
+$ python setup.py install --user
 ```
 
 Or you want to install system wide:
 
 ```
-$ python setup install
+$ python setup.py install
 ```
 
-Else want to install in 'development mode'
+Else want to install in `development mode`, you may use `--user` flag to
+only install in your home
 ```
-$ python setup.py develop
+$ python setup.py.py develop
 ```
 
 ### Meta
