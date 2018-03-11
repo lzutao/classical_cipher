@@ -15,18 +15,25 @@ def read(fname):
 setup(
 	name='classical_cipher',
 	version='1.1',
-	author='15520599',
-	author_email='15520599@gm.uit.edu.vn',
 	description='Some script for classcial cipher like Caesar, Vigenere, Affine, etc.',
 	long_description=read('README.md'),
-	license='GPL2',
-	keywords="python2 python2.7 classical-cipher",
 	url='https://github.com/lzutao/classical_cipher',
+
+	author='15520599',
+	author_email='15520599@gm.uit.edu.vn',
+
 	packages=['classical_cipher'], # same as @name
+	keywords="python2 python2.7 classical-cipher",
+	license='GPL2',
+	test_suite='tests',
 	zip_safe=False,
+	platforms=['any'],
 	classifiers=[
 		"Development Status :: 3 - Alpha",
+		'Environment :: Console',
 		"Topic :: Utilities",
 		"License :: OSI Approved :: GPL2 License",
+		'Intended Audience :: Developers',
+		'Operating System :: OS Independent',
 	],
 )

@@ -64,7 +64,7 @@ class Playfair:
 			return (self.get_coord(arow, bcol), self.get_coord(brow, acol))
 
 	def decipher_pair(self, a, b):
-		assert a != b, 'two of the same letters occurred together, illegal in Playfair'
+		assert a != b, 'two of the same letters occurred together, illegal in Playfair ciphertext'
 		arow, acol = divmod(self.key.index(a), 5)
 		brow, bcol = divmod(self.key.index(b), 5)
 		if arow == brow:
@@ -115,6 +115,7 @@ class Playfair:
 		"""
 		assert msg.isalpha(), "Invalid ciphertext. Must be Alphabetic string."
 		msg = msg.upper().strip()
+		assert 'J' not in msg, "J is in ciphertext, invalid because J is replace by I in Playfair."
 		assert Playfair.is_even_string(msg), "Invalid ciphertext. Length of ciphertext must be even."
 		out = []
 		msg_len = len(msg)
@@ -142,14 +143,20 @@ class Playfair:
 		>>> text
 		'Hidethegoldinthetrexestump'
 		'''
-		out = []
+		result = []
 		msg_len = len(msg)
-		for x in xrange(msg_len-1):
-			out.append(msg[x])
+		for x in xrange(0, msg_len-1, 2):
+			result.append(msg[x])
 			if msg[x] == msg[x+1]:
-				out.append('X')
-		out.append(msg[-1])
-		return ''.join(out)
+				result.append('X')
+				x -= 1
+			else:
+				result.append(msg[x+1])
+		# if length of msg is odd, add the last char to result
+		# else msg has same letter at end with even length
+		if (msg_len & 1 == 1) or (msg[-2] == msg[-1]):
+			result.append(msg[-1])
+		return ''.join(result)
 
 	@staticmethod
 	def filter_alpha(text):
