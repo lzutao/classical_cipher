@@ -2,8 +2,14 @@
 import argparse
 import math
 import itertools
-from classical_cipher.caesar import CaesarCipher
 
+try:
+	from classical_cipher.caesar import CaesarCipher
+except ImportError:
+	import sys
+	import os
+	sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+	from caesar import CaesarCipher
 
 def error(msg):
 	import sys
@@ -17,8 +23,8 @@ class VigenereCipher():
 	This cipher encrypts a letter according to the following equation::
 		c[i] = (p[i] + key[i % m]) % 26
 	where c is the ciphertext,
-	      p the plaintext,
-	      m = len(key).
+		  p the plaintext,
+		  m = len(key).
 
 	Example:
 	>>> ciphertext = VigenereCipher.encode(plaintext, key)
