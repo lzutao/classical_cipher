@@ -15,14 +15,14 @@ class TestVigenereCipher(unittest.TestCase):
 		testcases = [
 			# Task 1.3 page 5
 			(
-				'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz',
+				'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 				'GERMAN',
-				'gftpesmlzvkysrfbqeyxlhwkedrncqkjxtiwqpdzocwvjfuicbpl'
+				'gftpesmlzvkysrfbqeyxlhwkedRNCQKJXTIWQPDZOCWVJFUICBPL'
 			),
 			(
-				'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz',
+				'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 				'CIPHERS',
-				'cjrkiwyjqyrpdfqxfywkmxemfdrteltmkyalsatrfhszhaymozgo'
+				'cjrkiwyjqyrpdfqxfywkmxemfdRTELTMKYALSATRFHSZHAYMOZGO'
 			),
 		]
 
@@ -35,14 +35,14 @@ class TestVigenereCipher(unittest.TestCase):
 		testcases = [
 			# Task 1.3 page 5
 			(
-				'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz',
+				'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 				'GERMAN',
-				'gftpesmlzvkysrfbqeyxlhwkedrncqkjxtiwqpdzocwvjfuicbpl',
+				'gftpesmlzvkysrfbqeyxlhwkedRNCQKJXTIWQPDZOCWVJFUICBPL',
 			),
 			(
-				'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz',
+				'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 				'CIPHERS',
-				'cjrkiwyjqyrpdfqxfywkmxemfdrteltmkyalsatrfhszhaymozgo'
+				'cjrkiwyjqyrpdfqxfywkmxemfdRTELTMKYALSATRFHSZHAYMOZGO'
 			),
 		]
 
