@@ -1,7 +1,14 @@
 #!/usr/bin/env python2
 
 import unittest
-from classical_cipher.caesar import CaesarCipher
+
+try:
+	from classical_cipher.caesar import CaesarCipher
+except ImportError:
+	import sys
+	import os
+	sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+	from classical_cipher.caesar import CaesarCipher
 
 
 class TestCaesarCipher(unittest.TestCase):

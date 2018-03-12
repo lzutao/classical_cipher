@@ -1,7 +1,13 @@
 #!/usr/bin/env python2
 
 import unittest
-from classical_cipher.vigenere import VigenereCipher
+try:
+	from classical_cipher.vigenere import VigenereCipher
+except ImportError:
+	import sys
+	import os
+	sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+	from classical_cipher.vigenere import VigenereCipher
 
 class TestVigenereCipher(unittest.TestCase):
 	def test_encode(self):

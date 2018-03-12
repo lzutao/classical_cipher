@@ -1,7 +1,13 @@
 #!/usr/bin/env python2
 
 import unittest
-from classical_cipher.substitution import SimpleSubstitution
+try:
+	from classical_cipher.substitution import SimpleSubstitution
+except ImportError:
+	import sys
+	import os
+	sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+	from classical_cipher.substitution import SimpleSubstitution
 
 class TestSimpleSubstitution(unittest.TestCase):
 	def test_encode(self):
