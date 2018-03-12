@@ -1,7 +1,15 @@
 #!/usr/bin/env python2
 
 import unittest
-from classical_cipher.playfair import Playfair
+
+try:
+	from classical_cipher.playfair import Playfair
+except ImportError:
+	import sys
+	import os
+	sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+	from classical_cipher.playfair import Playfair
+
 
 class TestPlayfair(unittest.TestCase):
 	def test_encode(self):
@@ -29,7 +37,7 @@ class TestPlayfair(unittest.TestCase):
 		# test even length string
 		plaintext ='aaaaaaaaajjjjjkkkkkllllmmmmnnnnffffooooossssoffffffe'
 		key = 'tpaydcmhfoizwsuvxrbkelqgn'
-		ciphertext = 'PRPRPRPRPRPRPRPRTWVZVZVZVZVRVRVRVRXNLPLPLPZLZLZLOLKLKLKLMBMBMBOCKMKMKMKMZBZBZBUFMBMBMBMBMBCG'
+		ciphertext = 'PRPRPRPRPRPRPRPRTWZVZVZVUVVRVRVRXNPLPLPZZLZLOLLKLKGOMBMBOCMKMKMKFUZBZBUFMBMBMBMBMBCG'
 		result = Playfair(key=key).encode(plaintext)
 		self.assertEqual(result, ciphertext)
 

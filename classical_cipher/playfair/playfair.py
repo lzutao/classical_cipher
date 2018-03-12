@@ -144,17 +144,19 @@ class Playfair:
 		'Hidethegoldinthetrexestump'
 		'''
 		result = []
-		msg_len = len(msg)
-		for x in xrange(0, msg_len-1, 2):
-			result.append(msg[x])
-			if msg[x] == msg[x+1]:
-				result.append('X')
-				x -= 1
+		x = 0
+		length = len(msg) - 1
+		while x < length:
+			if msg[x] != msg[x+1]:
+				result.append(msg[x:x+2])
+				x += 2
 			else:
-				result.append(msg[x+1])
+				result.append(msg[x] + 'X')
+				x += 1
+
 		# if length of msg is odd, add the last char to result
 		# else msg has same letter at end with even length
-		if (msg_len & 1 == 1) or (msg[-2] == msg[-1]):
+		if ((length+1) & 1 == 1) or (msg[-2] == msg[-1]):
 			result.append(msg[-1])
 		return ''.join(result)
 
