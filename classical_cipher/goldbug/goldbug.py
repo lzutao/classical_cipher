@@ -42,14 +42,14 @@ class GoldbugCipher():
 		@param msg: Unicode message to decode
 		@returns: decoded string
 		'''
-		for char in msg:
-			assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext'%char.encode('utf-8')
+		for char in unicode(msg, 'utf-8'):
+			assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext'%char
 		return GoldbugCipher.__encode(msg, GoldbugCipher.INVERT_MAPPING)
 
 	@staticmethod
 	def __encode(msg, mapping):
 		result = []
-		for char in msg:
+		for char in unicode(msg, 'utf-8'):
 			result.append(mapping[char])
 		return ''.join(result)
 
@@ -82,11 +82,11 @@ def main():
 	# Required arguments.
 	if args.encode:
 		ciphertext = GoldbugCipher.encode(message)
-		print("Encoded message: %r"%ciphertext.encode('utf-8'))
+		print("Encoded message: %s"%ciphertext.encode('utf-8'))
 		#
 	elif args.decode:
 		plaintext = GoldbugCipher.decode(message)
-		print("Decoded message: %r"%plaintext.encode('utf-8'))
+		print("Decoded message: %s"%plaintext.encode('utf-8'))
 		#
 	else:
 		error("Please choose option to encode, decode.")
