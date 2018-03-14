@@ -24,7 +24,7 @@ setup(
 
 	packages=['classical_cipher'], # same as @name
 	keywords="python2 python2.7 classical-cipher",
-	license='GPL2',
+	license='MIT',
 	test_suite='tests',
 	zip_safe=False,
 	platforms=['any'],
@@ -32,7 +32,7 @@ setup(
 		"Development Status :: 3 - Alpha",
 		'Environment :: Console',
 		"Topic :: Utilities",
-		"License :: OSI Approved :: GPL2 License",
+		"License :: OSI Approved :: MIT License",
 		'Intended Audience :: Developers',
 		'Operating System :: OS Independent',
 	],

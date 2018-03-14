@@ -40,5 +40,5 @@ $ python setup.py.py develop
 ### Meta
 
 - Written by 15520599
-- Released under GPL2 License
+- Released under MIT License
 - Software is as is - no warranty expressed or implied.
