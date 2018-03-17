@@ -15,7 +15,7 @@ def read(fname):
 setup(
 	name='classical_cipher',
 	version='1.1',
-	description='Some script for classcial cipher like Caesar, Vigenere, Affine, etc.',
+	description='Some script for classcial cipher like Caesar, Vigenere, Playfair, etc.',
 	long_description=read('README.md'),
 	url='https://github.com/lzutao/classical_cipher',
 
