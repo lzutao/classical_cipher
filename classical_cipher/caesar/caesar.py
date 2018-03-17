@@ -173,7 +173,7 @@ def main():
 		print("KEY = %d"%key)
 		print('Most likely message: %r'%msg)
 		print("="*80)
-		yes = raw_input("[+] Continue to bruteforce (y/n)? ")
+		yes = raw_input("[+] Continue to bruteforce (y/N)? ")
 		if yes == 'y':
 			for x in xrange(0,26):
 				print("KEY =%4d"%x)
