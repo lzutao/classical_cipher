@@ -84,9 +84,10 @@ class CaesarCipher():
 		"""
 		message = msg.lower()
 		total = 0.0
+		# calculate log(x, base=2)
 		for char in message:
 			if char.isalpha():
-				total -= math.log(CaesarCipher.english_freq[char]) / CaesarCipher.LOGA_2
+				total -= math.log(CaesarCipher.english_freq[char], 2)
 		return total
 
 	@staticmethod
@@ -121,8 +122,6 @@ class CaesarCipher():
 	UPPER_Z_OFFSET = ord('Z')
 
 	LOWER_E_OFFSET = ord('e')
-
-	LOGA_2 = math.log(2)
 
 	# Relative frequencies of letters in the English language
 	# Ref: https://en.wikipedia.org/wiki/Letter_frequency
