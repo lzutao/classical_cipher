@@ -37,6 +37,13 @@ only install in your home
 $ python setup.py.py develop
 ```
 
+### Testing
+
+Use the following command to test:
+```
+$ python setup.py test
+```
+
 ### Meta
 
 - Written by 15520599

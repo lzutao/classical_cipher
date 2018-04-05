@@ -8,7 +8,7 @@ try:
 except ImportError:
     import sys
     import os
-    sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from caesar import CaesarCipher
 
 def error(msg):
@@ -32,14 +32,14 @@ class VigenereCipher():
     """
     @staticmethod
     def encode(msg, key='VIGENERE', key_valid=False):
-        '''encodes the message
+        """encodes the message
 
         @param msg: ASCII message to encode
         @param key: Only alpha string, no punctuation and space
         @param key_valid: if True, skip checking key
 
         @returns: encoded string
-        '''
+        """
         if not key_valid and not VigenereCipher.key_valid(key):
             error("Invalid key")
 
@@ -50,14 +50,14 @@ class VigenereCipher():
 
     @staticmethod
     def decode(msg, key='VIGENERE', key_valid=False):
-        '''decodes the message
+        """decodes the message
 
         @param msg: ASCII message to decode
         @param key: Only alpha string, no punctuation and space
         @param key_valid: if True, skip checking key
 
         @returns: decoded string
-        '''
+        """
         if not key_valid and not VigenereCipher.key_valid(key):
             error("Invalid key")
 
@@ -68,11 +68,11 @@ class VigenereCipher():
 
     @staticmethod
     def __shift(msg, shifts):
-        '''
+        """
         @param msg: bytearray want to shift
         @param shifts: an bytearray contains amounts to shift
         @returns: an shitfed bytearray
-        '''
+        """
         shifts = itertools.cycle(shifts) # cycle('ABCD') --> A B C D A B C D
 
         result = bytearray()
@@ -86,10 +86,10 @@ class VigenereCipher():
 
     @staticmethod
     def __createShiftArray(key):
-        '''
+        """
         @param key: Must be valid key
         @returns: an array represents amount to shift according to key
-        '''
+        """
         shifts = []
         for char in key:
             charcase = VigenereCipher.UPPER_A_OFFSET if char.isupper() else VigenereCipher.LOWER_A_OFFSET
