@@ -5,6 +5,8 @@ try:
 except ImportError:
     from distutils.core import setup
 
+from classical_cipher import version
+
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
 # README file and 2) it's easier to type in the README file than to put a raw
@@ -14,7 +16,7 @@ def read(fname):
 
 setup(
     name='classical_cipher',
-    version='1.1',
+    version=version.__version__,
     description='Some script for classcial cipher like Caesar, Vigenere, Playfair, etc.',
     long_description=read('README.md'),
     url='https://github.com/lzutao/classical_cipher',
