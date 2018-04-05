@@ -5,96 +5,105 @@ import math
 import itertools
 
 def error(msg):
-	import sys
-	print('[!] ERROR: %s'%msg)
-	print('For more, see --help')
-	sys.exit(1)
+    import sys
+    print('[!] ERROR: %s'%msg)
+    print('For more, see --help')
+    sys.exit(1)
 
+def get_unicode(strOrUnicode, encoding='utf-8'):
+    if isinstance(strOrUnicode, unicode):
+        return strOrUnicode
+    return unicode(strOrUnicode, encoding, errors='ignore')
+
+def get_string(strOrUnicode, encoding='utf-8'):
+    if isinstance(strOrUnicode, unicode):
+        return strOrUnicode.encode(encoding)
+    return strOrUnicode
 
 class GoldbugCipher():
-	"""Goldbug Cipher class
+    """Goldbug Cipher class
 
-	The Goldbug cipher has included in a short story by Edgar Allan Poe
-	and which was published in 1843. It tells the tail of William Legrand
-	and how he was bitten by a gold-colored bug. The mapping is:
+    The Goldbug cipher has included in a short story by Edgar Allan Poe
+    and which was published in 1843. It tells the tail of William Legrand
+    and how he was bitten by a gold-colored bug. The mapping is:
 
-		abcdefghijklmnopqrstuvwxyz
-		52-†81346,709*‡.$();?¶]¢:[
+        abcdefghijklmnopqrstuvwxyz
+        52-†81346,709*‡.$();?¶]¢:[
 
-	Example:
-	>>> ciphertext = GoldbugCipher.encode(plaintext)
-	>>> plaintext = GoldbugCipher.decode(ciphertext)
-	"""
-	@staticmethod
-	def encode(msg):
-		"""encodes the message
+    Example:
+    >>> ciphertext = GoldbugCipher.encode(plaintext)
+    >>> plaintext = GoldbugCipher.decode(ciphertext)
+    """
+    @staticmethod
+    def encode(msg):
+        """encodes the message
 
-		@param msg: Unicode message to encode
-		@returns: encoded string
-		"""
-		msg = GoldbugCipher.filter_alpha(msg).lower().replace(' ', '')
-		return GoldbugCipher.__encode(msg, GoldbugCipher.MAPPING)
+        @param msg: Unicode message to encode
+        @returns: encoded string
+        """
+        msg = GoldbugCipher.filter_alpha(msg).lower().replace(' ', '')
+        return GoldbugCipher.__encode(msg, GoldbugCipher.MAPPING)
 
-	@staticmethod
-	def decode(msg):
-		"""decodes the message
+    @staticmethod
+    def decode(msg):
+        """decodes the message
 
-		@param msg: Unicode message to decode
-		@returns: decoded string
-		"""
-		for char in unicode(msg, 'utf-8'):
-			assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext'%char
-		return GoldbugCipher.__encode(msg, GoldbugCipher.INVERT_MAPPING)
+        @param msg: Unicode message to decode
+        @returns: decoded string
+        """
+        for char in get_unicode(msg):
+            assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext'%char
+        return GoldbugCipher.__encode(msg, GoldbugCipher.INVERT_MAPPING)
 
-	@staticmethod
-	def __encode(msg, mapping):
-		result = []
-		for char in unicode(msg, 'utf-8'):
-			result.append(mapping[char])
-		return ''.join(result)
+    @staticmethod
+    def __encode(msg, mapping):
+        result = []
+        for char in get_unicode(msg):
+            result.append(mapping[char])
+        return ''.join(result)
 
-	@staticmethod
-	def filter_alpha(text):
-		result = [char for char in text if char.isalpha()]
-		return ''.join(result)
+    @staticmethod
+    def filter_alpha(text):
+        result = [char for char in text if char.isalpha()]
+        return ''.join(result)
 
-	GOLDBUG_CHARS = u'52-†81346,709*‡.$();?¶]¢:['
-	LOWERCASE = u'abcdefghijklmnopqrstuvwxyz'
+    GOLDBUG_CHARS = u'52-†81346,709*‡.$();?¶]¢:['
+    LOWERCASE = u'abcdefghijklmnopqrstuvwxyz'
 
-	MAPPING = dict(zip(LOWERCASE, GOLDBUG_CHARS))
-	INVERT_MAPPING = dict(zip(GOLDBUG_CHARS, LOWERCASE))
+    MAPPING = dict(zip(LOWERCASE, GOLDBUG_CHARS))
+    INVERT_MAPPING = dict(zip(GOLDBUG_CHARS, LOWERCASE))
 
 def main():
-	parser = argparse.ArgumentParser(
-		description=(
-			'The Gold-Bug cipher has included in a short story'
-			'by Edgar Allan Poe and which was published in 1843.'
-		),
-		epilog="[+] Written by 15520599")
-	parser.add_argument('message',
-		help='Unicode message to be encoded, decoded. Note that also accepts space character.')
+    parser = argparse.ArgumentParser(
+        description=(
+            'The Gold-Bug cipher has included in a short story'
+            'by Edgar Allan Poe and which was published in 1843.'
+        ),
+        epilog="[+] Written by 15520599")
+    parser.add_argument('message',
+        help='Unicode message to be encoded, decoded. Note that also accepts space character.')
 
-	# Conflicting options
-	conflicted_group = parser.add_mutually_exclusive_group()
-	conflicted_group.add_argument('-e', '--encode', action="store_true", help="encodes the message.")
-	conflicted_group.add_argument('-d', '--decode', action="store_true", help="decodes the message.")
+    # Conflicting options
+    conflicted_group = parser.add_mutually_exclusive_group()
+    conflicted_group.add_argument('-e', '--encode', action="store_true", help="encodes the message.")
+    conflicted_group.add_argument('-d', '--decode', action="store_true", help="decodes the message.")
 
-	args = parser.parse_args()
-	message = args.message.strip()
+    args = parser.parse_args()
+    message = args.message.strip()
 
-	# Required arguments.
-	if args.encode:
-		ciphertext = GoldbugCipher.encode(message)
-		print("Encoded message: %s"%ciphertext.encode('utf-8'))
-		#
-	elif args.decode:
-		plaintext = GoldbugCipher.decode(message)
-		print("Decoded message: %s"%plaintext.encode('utf-8'))
-		#
-	else:
-		error("Please choose option to encode, decode.")
+    # Required arguments.
+    if args.encode:
+        ciphertext = GoldbugCipher.encode(message)
+        print("Encoded message: %s"%ciphertext.encode('utf-8'))
+        #
+    elif args.decode:
+        plaintext = GoldbugCipher.decode(message)
+        print("Decoded message: %s"%plaintext.encode('utf-8'))
+        #
+    else:
+        error("Please choose option to encode, decode.")
 
 
 if __name__ == '__main__':
-	main()
+    main()
 
