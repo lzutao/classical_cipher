@@ -38,9 +38,9 @@ class Playfair:
 	Fore more, see https://en.wikipedia.org/wiki/Playfair_cipher#Description
 	"""
 	def __init__(self, key, key_valid=False):
-		'''
+		"""
 		@param key: Alpha string, accept spaces. (I is same as J in Playfair)
-		'''
+		"""
 		key = ''.join(key.split()).upper() # remove all space include newlines, tabs
 		if not key_valid and not Playfair.key_valid(key):
 			error("Invalid key.")
@@ -137,12 +137,12 @@ class Playfair:
 
 	@staticmethod
 	def handle_repeated_chars(msg):
-		'''If both letters are the same, add an "X" after the first letter
+		"""If both letters are the same, add an "X" after the first letter
 		Example:
 		>>> text = Playfair.handle_repeated_chars('Hidethegoldinthetreestump')
 		>>> text
 		'Hidethegoldinthetrexestump'
-		'''
+		"""
 		result = []
 		x = 0
 		length = len(msg) - 1
@@ -167,11 +167,11 @@ class Playfair:
 
 	@staticmethod
 	def remove_dups(oldkey):
-		'''Removes duplicates element on a list but keep its order
+		"""Removes duplicates element on a list but keep its order
 
 		@param oldkey: a string, list that need to deal with
 		@returns: a non-duplicated list
-		'''
+		"""
 		newkey = list()
 		seen = set()
 		for char in oldkey:
@@ -188,13 +188,14 @@ class Playfair:
 
 
 def main():
-	parser = argparse.ArgumentParser(description='''
-Playfair Cipher -- encode, decode or crack messages.
-
-This tool solves monoalphabetic substitution ciphers, also known as cryptograms.
-These are ciphers where each letter of the clear text is replaced by a
-corresponding letter of the cipher alphabet.
-''', epilog="[+] Written by 15520599")
+	parser = argparse.ArgumentParser(
+		description= (
+			'Playfair Cipher -- encode, decode or crack messages.'
+			'This tool solves monoalphabetic substitution ciphers, also known as cryptograms.'
+			'These are ciphers where each letter of the clear text is replaced by a'
+			'corresponding letter of the cipher alphabet.'
+		),
+		epilog="[+] Written by 15520599")
 	parser.add_argument('message', help="ASCII message to be encoded, decoded.")
 	parser.add_argument('-k', '--key',
 		help='ASCII string used to encode/decode message. Default is PLAYFAIRCIPHER.',

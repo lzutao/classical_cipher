@@ -96,16 +96,16 @@ class SimpleSubstitution:
 
 
 def main():
-	parser = argparse.ArgumentParser(description='''
-Simple Substitution Cipher -- encode, decode or crack messages.
-
-This tool solves monoalphabetic substitution ciphers, also known as cryptograms.
-These are ciphers where each letter of the clear text is replaced by a
-corresponding letter of the cipher alphabet.
-''', epilog="[+] Written by 15520599")
+	parser = argparse.ArgumentParser(
+		description=('Simple Substitution Cipher -- encode, decode or crack messages.'
+		'This tool solves monoalphabetic substitution ciphers, also known as cryptograms.'
+		'These are ciphers where each letter of the clear text is replaced by a'
+		'corresponding letter of the cipher alphabet.'
+		) ,
+		epilog="[+] Written by 15520599")
 	parser.add_argument('message', help="ASCII message to be encoded, decoded.")
 	parser.add_argument('-k', '--key',
-		help='ASCII string consisting of the letters A-Z jumbled up. Default is AJPCZWRLFBDKOTYUQGENHXMIVS.',
+		help='ASCII string consisting of the letters A-Z jumbled up. Default AJPCZWRLFBDKOTYUQGENHXMIVS.',
 		default='AJPCZWRLFBDKOTYUQGENHXMIVS')
 	# Conflicting options
 	conflicted_group = parser.add_mutually_exclusive_group()

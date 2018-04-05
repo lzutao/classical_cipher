@@ -27,21 +27,21 @@ class GoldbugCipher():
 	"""
 	@staticmethod
 	def encode(msg):
-		'''encodes the message
+		"""encodes the message
 
 		@param msg: Unicode message to encode
 		@returns: encoded string
-		'''
+		"""
 		msg = GoldbugCipher.filter_alpha(msg).lower().replace(' ', '')
 		return GoldbugCipher.__encode(msg, GoldbugCipher.MAPPING)
 
 	@staticmethod
 	def decode(msg):
-		'''decodes the message
+		"""decodes the message
 
 		@param msg: Unicode message to decode
 		@returns: decoded string
-		'''
+		"""
 		for char in unicode(msg, 'utf-8'):
 			assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext'%char
 		return GoldbugCipher.__encode(msg, GoldbugCipher.INVERT_MAPPING)
@@ -66,10 +66,13 @@ class GoldbugCipher():
 
 def main():
 	parser = argparse.ArgumentParser(
-		description='''The Gold-Bug cipher has included in a short story
-		by Edgar Allan Poe and which was published in 1843.''',
+		description=(
+			'The Gold-Bug cipher has included in a short story'
+			'by Edgar Allan Poe and which was published in 1843.'
+		),
 		epilog="[+] Written by 15520599")
-	parser.add_argument('message', help="Unicode message to be encoded, decoded. Note that also accepts space character.")
+	parser.add_argument('message',
+		help='Unicode message to be encoded, decoded. Note that also accepts space character.')
 
 	# Conflicting options
 	conflicted_group = parser.add_mutually_exclusive_group()

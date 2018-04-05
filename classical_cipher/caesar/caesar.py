@@ -21,12 +21,12 @@ class CaesarCipher():
 	"""
 	@staticmethod
 	def encode(msg, key=13):
-		'''encodes the message
+		"""encodes the message
 
 		@param msg: ASCII message to encode
 		@param key: shift amount from 1-25
 		@returns: encoded string
-		'''
+		"""
 		message = bytearray(msg)
 		result = bytearray()
 		for char in message:
@@ -36,12 +36,12 @@ class CaesarCipher():
 
 	@staticmethod
 	def decode(msg, key=13):
-		'''decodes the message
+		"""decodes the message
 
 		@param msg: ASCII message to decode
 		@param key: shift amount from 1-25
 		@returns: decoded string
-		'''
+		"""
 		return CaesarCipher.encode(msg, 26-key)
 
 	@staticmethod
@@ -58,13 +58,13 @@ class CaesarCipher():
 
 	@staticmethod
 	def caesar(char, key):
-		'''caesar(bytes('a'), 3) -> bytes('d')
+		"""caesar(bytes('a'), 3) -> bytes('d')
 
 		@param char: a bytes to shitf
 		@param key: amount to shift
 
 		@returns: a shifted bytes
-		'''
+		"""
 		result = char
 		if CaesarCipher.__isupper(char):
 			result = CaesarCipher.__translate(char, CaesarCipher.LOWER_A_OFFSET, key)
@@ -91,7 +91,7 @@ class CaesarCipher():
 		return total
 
 	@staticmethod
-	def crack(msg, cache={}):
+	def crack(msg, cache=None):
 		"""Attempts to crack ciphertext using frequency of letters in English.
 
 		@param msg: ASCII string to crack
@@ -99,6 +99,9 @@ class CaesarCipher():
 
 		@returns: a tuple of key and most likely ASCII message.
 		"""
+		if cache is None:
+			cache = {}
+
 		entropies = {}
 
 		# some people try to trick me with original message
