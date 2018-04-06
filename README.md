@@ -37,6 +37,19 @@ only install in your home
 $ python setup.py.py develop
 ```
 
+### Usage
+
+If you get some error such as `ValueError: Attempted relative import in non-package`.
+You should try to run it as module instead of a single python file:
+```
+$ cd /path/to/classical_cipher
+$ python -m classical_cipher/vigenere/vigenere
+```
+
+Note that you should use `classical_cipher/vigenere/vigenere` instead of `classical_cipher/vigenere/vigenere.py`
+
+Replace `vigenere` with other tools if needed.
+
 ### Testing
 
 Use the following command to test:
