@@ -1,5 +1,8 @@
 # classical_cipher
 
+[![Travis](https://travis-ci.org/lzutao/classical_cipher.svg)](https://travis-ci.org/lzutao/classical_cipher)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+
 A Python package and command line script for encoding,
 decoding with classical cipher such as Caesar Cipher,
 Vigenere Cipher, Affine Cipher, Playfair, etc
