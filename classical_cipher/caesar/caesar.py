@@ -1,10 +1,9 @@
 #!/usr/bin/env python2
 import argparse
 import math
-
+import sys
 
 def error(msg):
-    import sys
     print('[!] ERROR: %s'%msg)
     print('For more, see --help')
     sys.exit(1)
@@ -23,9 +22,9 @@ class CaesarCipher():
     def encode(msg, key=13):
         """encodes the message
 
-        @param msg: ASCII message to encode
-        @param key: shift amount from 1-25
-        @returns: encoded string
+        :param msg: ASCII message to encode
+        :param key: shift amount from 1-25
+        :return: encoded string
         """
         message = bytearray(msg)
         result = bytearray()
@@ -38,9 +37,9 @@ class CaesarCipher():
     def decode(msg, key=13):
         """decodes the message
 
-        @param msg: ASCII message to decode
-        @param key: shift amount from 1-25
-        @returns: decoded string
+        :param msg: ASCII message to decode
+        :param key: shift amount from 1-25
+        :return: decoded string
         """
         return CaesarCipher.encode(msg, 26-key)
 
@@ -60,10 +59,10 @@ class CaesarCipher():
     def caesar(char, key):
         """caesar(bytes('a'), 3) -> bytes('d')
 
-        @param char: a bytes to shitf
-        @param key: amount to shift
+        :param char: a bytes to shitf
+        :param key: amount to shift
 
-        @returns: a shifted bytes
+        :return: a shifted bytes
         """
         result = char
         if CaesarCipher.__isupper(char):
@@ -79,8 +78,8 @@ class CaesarCipher():
             + https://arxiv.org/pdf/1707.08209.pdf
             + https://en.wikipedia.org/wiki/Entropy_(information_theory)
 
-        @param msg: ASCII string to calculate
-        @returns: A float with the total entropy of the string (lower is better).
+        :param msg: ASCII string to calculate
+        :return: A float with the total entropy of the string (lower is better).
         """
         message = msg.lower()
         total = 0.0
@@ -94,10 +93,10 @@ class CaesarCipher():
     def crack(msg, cache=None):
         """Attempts to crack ciphertext using frequency of letters in English.
 
-        @param msg: ASCII string to crack
-        @param cache: a dictionary to cache crack result
+        :param msg: ASCII string to crack
+        :param cache: a dictionary to cache crack result
 
-        @returns: a tuple of key and most likely ASCII message.
+        :return: a tuple of key and most likely ASCII message.
         """
         if cache is None:
             cache = {}

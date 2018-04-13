@@ -1,7 +1,6 @@
 # classical_cipher
 
-[![Travis](https://travis-ci.org/lzutao/classical_cipher.svg)](https://travis-ci.org/lzutao/classical_cipher)
-![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![Build Status](https://travis-ci.org/lzutao/classical_cipher.svg?branch=master)](https://travis-ci.org/lzutao/classical_cipher)
 
 A Python package and command line script for encoding,
 decoding with classical cipher such as Caesar Cipher,
@@ -62,6 +61,6 @@ $ python setup.py test
 
 ### Meta
 
-- Written by 15520599
-- Released under MIT License
+- Written by @lzutao
+- Released under [MIT License](LICENSE)
 - Software is as is - no warranty expressed or implied.
