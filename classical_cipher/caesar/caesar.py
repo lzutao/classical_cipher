@@ -41,19 +41,19 @@ class CaesarCipher():
         :param key: shift amount from 1-25
         :return: decoded string
         """
-        return CaesarCipher.encode(msg, 26-key)
+        return CaesarCipher.encode(msg, CaesarCipher.ROUND - key)
 
     @staticmethod
-    def __isupper(b):
-        return (CaesarCipher.LOWER_A_OFFSET <= b) and (b <= CaesarCipher.LOWER_Z_OFFSET)
+    def _isupper(b):
+        return (CaesarCipher.UPPER_A_OFFSET <= b <= CaesarCipher.UPPER_Z_OFFSET)
 
     @staticmethod
-    def __islower(b):
-        return (CaesarCipher.UPPER_A_OFFSET <= b) and (b <= CaesarCipher.UPPER_Z_OFFSET)
+    def _islower(b):
+        return (CaesarCipher.LOWER_A_OFFSET <= b <= CaesarCipher.LOWER_Z_OFFSET)
 
     @staticmethod
-    def __translate(b, offset, key):
-        return (b - offset + key)%26 + offset
+    def _translate(b, offset, key):
+        return (b - offset + key)%CaesarCipher.ROUND + offset
 
     @staticmethod
     def caesar(char, key):
@@ -65,14 +65,14 @@ class CaesarCipher():
         :return: a shifted bytes
         """
         result = char
-        if CaesarCipher.__isupper(char):
-            result = CaesarCipher.__translate(char, CaesarCipher.LOWER_A_OFFSET, key)
-        elif CaesarCipher.__islower(char):
-            result = CaesarCipher.__translate(char, CaesarCipher.UPPER_A_OFFSET, key)
+        if CaesarCipher._isupper(char):
+            result = CaesarCipher._translate(char, CaesarCipher.UPPER_A_OFFSET, key)
+        elif CaesarCipher._islower(char):
+            result = CaesarCipher._translate(char, CaesarCipher.LOWER_A_OFFSET, key)
         return result
 
     @staticmethod
-    def entropy_analysics(msg):
+    def _entropy_analysics(msg):
         """Calculates the entropy of a string based on known frequency of English letters.
         Ref:
             + https://arxiv.org/pdf/1707.08209.pdf
@@ -105,11 +105,11 @@ class CaesarCipher():
 
         # some people try to trick me with original message
         # not the encoded message
-        entropies[0] = CaesarCipher.entropy_analysics(msg)
+        entropies[0] = CaesarCipher._entropy_analysics(msg)
         cache[0] = msg
-        for x in xrange(1,26):
+        for x in xrange(1, CaesarCipher.ROUND):
             ciphertext = CaesarCipher.decode(msg, x)
-            entropies[x] = CaesarCipher.entropy_analysics(ciphertext)
+            entropies[x] = CaesarCipher._entropy_analysics(ciphertext)
             cache[x] = ciphertext
         # outloop
 
@@ -117,6 +117,7 @@ class CaesarCipher():
 
         return (lowest_entropy_index, cache[lowest_entropy_index])
 
+    ROUND = 26
 
     LOWER_A_OFFSET = ord('a')
     LOWER_Z_OFFSET = ord('z')
@@ -176,7 +177,7 @@ def main():
         print("="*80)
         yes = raw_input("[+] Continue to bruteforce (y/N)? ")
         if yes == 'y':
-            for x in xrange(0,26):
+            for x in xrange(26):
                 print("KEY =%4d"%x)
                 print('Message: %r'%cache[x])
                 print('='*40)
