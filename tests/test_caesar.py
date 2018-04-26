@@ -45,14 +45,14 @@ class TestCaesarCipher(unittest.TestCase):
             result = CaesarCipher.encode(a, k)
             self.assertEqual(result, solution)
 
-    def test_entropy_analysics(self):
-        # testcases: each is a tuple (msg, e) where e = CaesarCipher.entropy_analysics(msg)
+    def test__entropy_analysics(self):
+        # testcases: each is a tuple (msg, e) where e = CaesarCipher._entropy_analysics(msg)
         testcases = [
             ('Accepts messages', 62.594804275),
             ("That's the never ending story of Robert.", 128.908800926),
         ]
         for msg, e in testcases:
-            result = CaesarCipher.entropy_analysics(msg)
+            result = CaesarCipher._entropy_analysics(msg)
             self.assertAlmostEqual(result, e)
 
     def test_crack(self):

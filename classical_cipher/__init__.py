@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-import version
+from . import version
 
 __title__ = 'classical_cipher'
 __author__ = '15520599'
