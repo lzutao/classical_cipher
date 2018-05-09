@@ -1,4 +1,7 @@
 language: python
+git:
+  depth: 3
+  submodules: false
 python:
   - "2.7"
   # - "3.5"
