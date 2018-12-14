@@ -2,8 +2,8 @@
 
 [![Build Status][travis_status]][travis_repo]
 
-[travis_status]: https://travis-ci.org/lzutao/classical_cipher.svg?branch=master
-[travis_repo]: https://travis-ci.org/lzutao/classical_cipher
+[travis_status]: https://travis-ci.com/lzutao/classical_cipher.svg?branch=master
+[travis_repo]: https://travis-ci.com/lzutao/classical_cipher
 
 A Python package and command line script for encoding,
 decoding with classical cipher such as Caesar Cipher,
