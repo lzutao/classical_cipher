@@ -21,8 +21,8 @@ setup(
     long_description=read('README.md'),
     url='https://github.com/lzutao/classical_cipher',
 
-    author='15520599',
-    author_email='15520599@gm.uit.edu.vn',
+    author='Lzu Tao',
+    author_email='taolzu@gmail.com',
 
     packages=['classical_cipher'], # same as @name
     keywords="python2 python2.7 classical-cipher",
