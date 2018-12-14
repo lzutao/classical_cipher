@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 import argparse
-import math
 import itertools
+
 
 try:
     from classical_cipher.caesar import CaesarCipher
@@ -11,9 +11,10 @@ except ImportError:
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from caesar import CaesarCipher
 
+
 def error(msg):
     import sys
-    print('[!] ERROR: %s'%msg)
+    print('[!] ERROR: %s' % msg)
     print('For more, see --help')
     sys.exit(1)
 
@@ -82,7 +83,7 @@ class VigenereCipher():
 
     @staticmethod
     def key_valid(key):
-        return (len(key) > 0 and key.isalpha())
+        return (key and key.isalpha())
 
     @staticmethod
     def __createShiftArray(key):
@@ -124,13 +125,13 @@ def main():
     # Required arguments.
     if args.encode:
         ciphertext = VigenereCipher.encode(message, key, True)
-        print('KEY = %s'%key)
-        print("Encoded message: %r"%(ciphertext))
+        print('KEY = %s' % key)
+        print("Encoded message: %r" % (ciphertext))
         #
     elif args.decode:
         plaintext = VigenereCipher.decode(message, key, True)
-        print('KEY = %s'%key)
-        print("Decoded message: %r"%(plaintext))
+        print('KEY = %s' % key)
+        print("Decoded message: %r" % (plaintext))
         #
     else:
         error("Please choose option to encode, decode.")
@@ -138,4 +139,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

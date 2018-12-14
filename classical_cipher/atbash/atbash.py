@@ -2,9 +2,10 @@
 import argparse
 import string
 
+
 def error(msg):
     import sys
-    print('[!] ERROR: %s'%msg)
+    print('[!] ERROR: %s' % msg)
     print('For more, see --help')
     sys.exit(1)
 
@@ -56,7 +57,6 @@ def main():
     conflicted_group.add_argument('-e', '--encode', action="store_true", help="encodes the message.")
     conflicted_group.add_argument('-d', '--decode', action="store_true", help="decodes the message.")
 
-
     args = parser.parse_args()
 
     message = args.message.strip()
@@ -64,11 +64,11 @@ def main():
     # Required arguments.
     if args.encode:
         ciphertext = Atbash.encode(message)
-        print("Encoded message: %r"%(ciphertext))
+        print("Encoded message: %r" % (ciphertext))
         #
     elif args.decode:
         plaintext = Atbash.decode(message)
-        print("Decoded message: %r"%(plaintext))
+        print("Decoded message: %r" % (plaintext))
         #
     else:
         error("Please choose option to encode, decode the message.")
@@ -76,4 +76,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

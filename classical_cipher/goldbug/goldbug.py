@@ -1,24 +1,26 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 import argparse
-import math
-import itertools
+
 
 def error(msg):
     import sys
-    print('[!] ERROR: %s'%msg)
+    print('[!] ERROR: %s' % msg)
     print('For more, see --help')
     sys.exit(1)
+
 
 def get_unicode(strOrUnicode, encoding='utf-8'):
     if isinstance(strOrUnicode, unicode):
         return strOrUnicode
     return unicode(strOrUnicode, encoding, errors='ignore')
 
+
 def get_string(strOrUnicode, encoding='utf-8'):
     if isinstance(strOrUnicode, unicode):
         return strOrUnicode.encode(encoding)
     return strOrUnicode
+
 
 class GoldbugCipher():
     """Goldbug Cipher class
@@ -52,7 +54,7 @@ class GoldbugCipher():
         @returns: decoded string
         """
         for char in get_unicode(msg):
-            assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext'%char
+            assert char in GoldbugCipher.GOLDBUG_CHARS, 'Invalid char %s in ciphertext' % char
         return GoldbugCipher.__encode(msg, GoldbugCipher.INVERT_MAPPING)
 
     @staticmethod
@@ -72,6 +74,7 @@ class GoldbugCipher():
 
     MAPPING = dict(zip(LOWERCASE, GOLDBUG_CHARS))
     INVERT_MAPPING = dict(zip(GOLDBUG_CHARS, LOWERCASE))
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -94,11 +97,11 @@ def main():
     # Required arguments.
     if args.encode:
         ciphertext = GoldbugCipher.encode(message)
-        print("Encoded message: %s"%ciphertext.encode('utf-8'))
+        print("Encoded message: %s" % ciphertext.encode('utf-8'))
         #
     elif args.decode:
         plaintext = GoldbugCipher.decode(message)
-        print("Decoded message: %s"%plaintext.encode('utf-8'))
+        print("Decoded message: %s" % plaintext.encode('utf-8'))
         #
     else:
         error("Please choose option to encode, decode.")
@@ -106,4 +109,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

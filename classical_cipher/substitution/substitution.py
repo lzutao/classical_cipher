@@ -1,11 +1,11 @@
 #!/usr/bin/env python2
 import argparse
-import math
 import string
+
 
 def error(msg):
     import sys
-    print('[!] ERROR: %s'%msg)
+    print('[!] ERROR: %s' % msg)
     print('For more, see --help')
     sys.exit(1)
 
@@ -90,18 +90,19 @@ class SimpleSubstitution:
 
     def print_key(self):
         print('========= KEY ==========')
-        print('This clear text : %s'%string.lowercase)
-        print('        maps to : %s'%self.table)
+        print('This clear text : %s' % string.lowercase)
+        print('        maps to : %s' % self.table)
         print('========================')
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description=('Simple Substitution Cipher -- encode, decode or crack messages.'
-        'This tool solves monoalphabetic substitution ciphers, also known as cryptograms.'
-        'These are ciphers where each letter of the clear text is replaced by a'
-        'corresponding letter of the cipher alphabet.'
-        ) ,
+    program_description = """
+Simple Substitution Cipher -- encode, decode or crack messages.
+This tool solves monoalphabetic substitution ciphers, also known as cryptograms.
+These are ciphers where each letter of the clear text is replaced by a
+corresponding letter of the cipher alphabet.
+"""
+    parser = argparse.ArgumentParser(description=program_description,
         epilog="[+] Written by 15520599")
     parser.add_argument('message', help="ASCII message to be encoded, decoded.")
     parser.add_argument('-k', '--key',
@@ -111,7 +112,6 @@ def main():
     conflicted_group = parser.add_mutually_exclusive_group()
     conflicted_group.add_argument('-e', '--encode', action="store_true", help="encodes the message.")
     conflicted_group.add_argument('-d', '--decode', action="store_true", help="decodes the message.")
-
 
     args = parser.parse_args()
 
@@ -127,12 +127,12 @@ def main():
     if args.encode:
         substituter.print_key()
         ciphertext = substituter.encode(message)
-        print("Encoded message: %r"%(ciphertext))
+        print("Encoded message: %r" % (ciphertext))
         #
     elif args.decode:
         substituter.print_key()
         plaintext = substituter.decode(message)
-        print("Decoded message: %r"%(plaintext))
+        print("Decoded message: %r" % (plaintext))
         #
     else:
         error("Please choose option to encode, decode the message.")
@@ -140,4 +140,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

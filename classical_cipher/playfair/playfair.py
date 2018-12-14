@@ -1,11 +1,10 @@
 #!/usr/bin/env python2
 import argparse
-import math
-import string
+
 
 def error(msg):
     import sys
-    print('[!] ERROR: %s'%msg)
+    print('[!] ERROR: %s' % msg)
     print('For more, see --help')
     sys.exit(1)
 
@@ -57,9 +56,9 @@ class Playfair:
         arow, acol = divmod(self.key.index(a), 5)
         brow, bcol = divmod(self.key.index(b), 5)
         if arow == brow:
-            return (self.get_coord(arow, (acol + 1)%5), self.get_coord(brow, (bcol + 1)%5))
+            return (self.get_coord(arow, (acol + 1) % 5), self.get_coord(brow, (bcol + 1) % 5))
         elif acol == bcol:
-            return (self.get_coord((arow + 1)%5, acol), self.get_coord((brow + 1)%5, bcol))
+            return (self.get_coord((arow + 1) % 5, acol), self.get_coord((brow + 1) % 5, bcol))
         else:
             return (self.get_coord(arow, bcol), self.get_coord(brow, acol))
 
@@ -68,11 +67,11 @@ class Playfair:
         arow, acol = divmod(self.key.index(a), 5)
         brow, bcol = divmod(self.key.index(b), 5)
         if arow == brow:
-            return (self.get_coord(arow , (acol - 1)%5), self.get_coord(brow , (bcol - 1)%5))
+            return (self.get_coord(arow, (acol - 1) % 5), self.get_coord(brow, (bcol - 1) % 5))
         elif acol == bcol:
-            return (self.get_coord((arow - 1)%5, acol), self.get_coord((brow - 1)%5 , bcol))
+            return (self.get_coord((arow - 1) % 5, acol), self.get_coord((brow - 1) % 5, bcol))
         else:
-            return (self.get_coord(arow , bcol), self.get_coord(brow, acol))
+            return (self.get_coord(arow, bcol), self.get_coord(brow, acol))
 
     def get_coord(self, x, y):
         return self.key[x*5 + y]
@@ -184,17 +183,16 @@ class Playfair:
     def key_valid(key):
         return key.isalpha()
 
-    DEFAULT_KEY=tuple('ABCDEFGHIKLMNOPQRSTUVWXYZ') # I is same as J
+    DEFAULT_KEY = tuple('ABCDEFGHIKLMNOPQRSTUVWXYZ') # I is same as J
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description= (
-            'Playfair Cipher -- encode, decode or crack messages.'
-            'This tool solves monoalphabetic substitution ciphers, also known as cryptograms.'
-            'These are ciphers where each letter of the clear text is replaced by a'
-            'corresponding letter of the cipher alphabet.'
-        ),
+    program_description = """Playfair Cipher -- encode, decode or crack messages.
+This tool solves monoalphabetic substitution ciphers, also known as cryptograms.
+These are ciphers where each letter of the clear text is replaced by a
+corresponding letter of the cipher alphabet.
+"""
+    parser = argparse.ArgumentParser(description=program_description,
         epilog="[+] Written by 15520599")
     parser.add_argument('message', help="ASCII message to be encoded, decoded.")
     parser.add_argument('-k', '--key',
@@ -204,7 +202,6 @@ def main():
     conflicted_group = parser.add_mutually_exclusive_group()
     conflicted_group.add_argument('-e', '--encode', action="store_true", help="encodes the message.")
     conflicted_group.add_argument('-d', '--decode', action="store_true", help="decodes the message.")
-
 
     args = parser.parse_args()
 
@@ -217,12 +214,12 @@ def main():
     if args.encode:
         playfairer.print_key()
         ciphertext = playfairer.encode(message)
-        print("Encoded message: %r"%(str(ciphertext)))
+        print("Encoded message: %r" % (str(ciphertext)))
         #
     elif args.decode:
         playfairer.print_key()
         plaintext = playfairer.decode(message)
-        print("Decoded message: %r"%(str(plaintext)))
+        print("Decoded message: %r" % (str(plaintext)))
         #
     else:
         error("Please choose option to encode, decode the message.")
@@ -230,4 +227,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

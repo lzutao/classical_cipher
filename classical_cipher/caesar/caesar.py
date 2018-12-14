@@ -3,10 +3,12 @@ import argparse
 import math
 import sys
 
+
 def error(msg):
-    print('[!] ERROR: %s'%msg)
+    print('[!] ERROR: %s' % msg)
     print('For more, see --help')
     sys.exit(1)
+
 
 class CaesarCipher():
     """Caesar cipher
@@ -53,7 +55,7 @@ class CaesarCipher():
 
     @staticmethod
     def _translate(b, offset, key):
-        return (b - offset + key)%CaesarCipher.ROUND + offset
+        return (b - offset + key) % CaesarCipher.ROUND + offset
 
     @staticmethod
     def caesar(char, key):
@@ -152,7 +154,6 @@ def main():
     conflicted_group.add_argument('-d', '--decode', action="store_true", help="decodes the message.")
     conflicted_group.add_argument('-c', '--crack',  action="store_true", help="Crack ciphertext to find most likely message in English.")
 
-
     args = parser.parse_args()
     message = args.message.strip()
     key = args.key % 26
@@ -160,26 +161,26 @@ def main():
     # Required arguments.
     if args.encode:
         ciphertext = CaesarCipher.encode(message, key)
-        print('KEY = %d'%key)
-        print("Encoded message: %r"%ciphertext)
+        print('KEY = %d' % key)
+        print("Encoded message: %r" % ciphertext)
         #
     elif args.decode:
         plaintext = CaesarCipher.decode(message, key)
-        print('KEY = %d'%key)
-        print("Decoded message: %r"%plaintext)
+        print('KEY = %d' % key)
+        print("Decoded message: %r" % plaintext)
         #
     elif args.crack:
         cache = {}
         key, msg = CaesarCipher.crack(message, cache=cache)
         print("="*80)
-        print("KEY = %d"%key)
-        print('Most likely message: %r'%msg)
+        print("KEY = %d" % key)
+        print('Most likely message: %r' % msg)
         print("="*80)
         yes = raw_input("[+] Continue to bruteforce (y/N)? ")
         if yes == 'y':
             for x in xrange(26):
-                print("KEY =%4d"%x)
-                print('Message: %r'%cache[x])
+                print("KEY =%4d" % x)
+                print('Message: %r' % cache[x])
                 print('='*40)
     else:
         error("Please choose option to encode, decode or crack.")
@@ -187,4 +188,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
